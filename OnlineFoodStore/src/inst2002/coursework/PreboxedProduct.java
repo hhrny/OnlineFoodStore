@@ -22,15 +22,51 @@ public class PreboxedProduct extends Product {
     }
 
     public int getPostage(int units) {
-        // we must use small parcels for loose food.
+        // we can use small parcels or non-small parcels for preboxed food.
         // You WILL NEED to complete this method
-        return 0;
+    	int result;
+    	if(this.inSmallParcel){
+    		// the preboxed product deliver using small parcel
+        	int unitNumPerSmallParcel = (int) (2.0 / this.UNITWEIGHT);    // get the number of units per small parcel, 2.0kg
+        	result = units / unitNumPerSmallParcel;
+        	if(units % unitNumPerSmallParcel > 0){
+        		result ++;
+        	}
+        	return result * Product.SMALLPARCELPOSTAGE2KG;
+        }
+    	// deliver using non-small parcel
+		int unitNumPerParcel = (int) (20.0 / this.UNITWEIGHT);    // get the number of units per parcel, 20.0kg
+		result = units / unitNumPerParcel;                        // the number of full parcel
+		double restWeight = (units % unitNumPerParcel) * this.UNITWEIGHT;  // the rest weight in no full parcel
+		int restPrice = this.getPostageofWeight(restWeight);
+		return result*Product.PARCELPOSTAGE20KG + restPrice;
+    }
+    
+    public int getPostageofWeight(double weight){
+    	if(weight > 20.0){
+    		System.out.println("error: weight bigger than 20.0");
+    		return 0;
+    	}
+    	else if(weight > 10.0){
+    		return Product.PARCELPOSTAGE20KG;
+    	}
+    	else if(weight > 5.0){
+    		return Product.PARCELPOSTAGE10KG;
+    	}
+    	else if(weight > 2.0){
+    		return Product.PARCELPOSTAGE5KG;
+    	}
+    	else if(weight > 0.0){
+    		return Product.PARCELPOSTAGE2KG;
+    	}
+    	else{
+    		System.out.println("error: weight less than 0.0");
+    		return -1;
+    	}
     }
 
     @Override
     public String toProductListEntry(int id) {
-        // You SHOULD NOT edit this method, it is provided for you
-
         // creates a String representation of the product to place in a product list
         // input: id is the identifier of this product in some list
         String paddedName = getPaddedName();
@@ -38,6 +74,7 @@ public class PreboxedProduct extends Product {
             + "(" + String.format("%.2f", getUnitWeight()) + ")\t"
             + PriceFormatter.priceToString(getUnitPrice());
     }
+    
     public boolean equals(PreboxedProduct preboxedProduct){
     	if(preboxedProduct instanceof PreboxedProduct){
     		if(this.getName().equals(preboxedProduct.getName()) && this.getUnitPrice() == preboxedProduct.getUnitPrice() && this.getUnitWeight() == preboxedProduct.getUnitWeight()){

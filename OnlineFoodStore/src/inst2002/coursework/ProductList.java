@@ -89,20 +89,25 @@ produces a String representation of the ProductList for output
            You WILL NEED at least 4 packaged products, with various maximum values 
            for packing into boxes.
            */
-        products.addProduct(
-                new PackagedProduct("Dried Mangosteen Pack", 269, 0.13, 7, 100));
+        products.addProduct(new PackagedProduct("Dried Mangosteen Pack", 269, 0.13, 7, 100));
+        products.addProduct(new PackagedProduct("xxxx xxxx", 1969, 0.1, 15, 150));
+        products.addProduct(new PackagedProduct("xxxxxxxxxxx", 1234, 0.35, 4, 40));
+        products.addProduct(new PackagedProduct("xx xx xx ", 869, 0.22, 5, 50));
+
 
         /*
            You WILL NEED at least 3 preboxed products, some small parcels some
            non-small parcels.
            */
-        products.addProduct(
-                new PreboxedProduct("Organic Black Rice", 1500, 2.0, true));
+        products.addProduct(new PreboxedProduct("Organic Black Rice", 1500, 2.0, true));
+        products.addProduct(new PreboxedProduct("xxxx xxx xxx", 1700, 3.0, true));
+        products.addProduct(new PreboxedProduct("xx xx  xxx", 1900, 3.5, true));
 
         /*
            You WILL NEED at least 2 loose products at a variety of prices
            */
         products.addProduct(new LooseProduct("Star Anise", 1990));
+        products.addProduct(new LooseProduct("xxx  xxx", 2190));
 
 
         return products;

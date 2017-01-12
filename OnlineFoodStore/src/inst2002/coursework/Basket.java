@@ -20,12 +20,20 @@ public class Basket {
 
     private int calculatePostage() {
 		// TODO Auto-generated method stub
-		return 0;
+    	int sum = 0;
+    	for(BasketItem basketItem : items){
+    		sum += basketItem.postagePrice();
+    	}
+		return sum;
 	}
 
 	private int calculateSubtotal() {
 		// TODO Auto-generated method stub
-		return 0;
+		int sum = 0;
+		for(BasketItem basketItem : items){
+			sum += basketItem.orderPrice();
+		}
+		return sum;
 	}
 
 	@Override
@@ -46,4 +54,34 @@ public class Basket {
         }
         return out;
     }
+	
+	public boolean inBasket(Product product){
+		for(BasketItem basketItem : items){
+			if(basketItem.matchesProduct(product)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addNewOrder(Product product, String quantityStr){
+		if(product instanceof LooseProduct){
+			this.items.add(new WeightOrder((LooseProduct)product, quantityStr));
+		}
+		else if(product instanceof PreboxedProduct || product instanceof PackagedProduct){
+			this.items.add(new UnitaryOrder(product, quantityStr));
+		}
+		else{
+			System.out.println("error: error product type");
+		}
+	}
+	
+	public void amendOrder(Product product, String quantityStr){
+		for(BasketItem basketItem : items){
+			if(basketItem.matchesProduct(product)){
+				basketItem.amendOrder(quantityStr);
+				return;
+			}
+		}
+	}
 }

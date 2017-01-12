@@ -26,7 +26,11 @@ public class LooseProduct extends Product {
     public int getPostage(double weight) {
         // we must use small parcels for loose food.
         // You WILL NEED to complete this method
-        return 0;
+        int result = (int) (weight/2.0);
+        if(weight%2.0 > 0.0){
+        	result += 1;
+        }
+    	return result*Product.SMALLPARCELPOSTAGE2KG;
     }
 
     @Override

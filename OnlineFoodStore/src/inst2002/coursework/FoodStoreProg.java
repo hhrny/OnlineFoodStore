@@ -30,7 +30,7 @@ public class FoodStoreProg {
            */
         // uncomment the line below when you start to implement the classes from 
         // section 4 of the assessment
-        //fs.run();
+        fs.run();
 
     }
 
@@ -41,59 +41,59 @@ public class FoodStoreProg {
 
     // uncomment the methods below when you start to implement the classes from
     // section 4 of the assessment
-    /*
-       public void run() {
-    // You SHOULD NOT edit this method
-    basket = new Basket();
 
-    String selection = "";
-    while (true) {
-    // output product list, current status and request input
-    System.out.println(productList);
-    System.out.println(basket);
-    System.out.print("Input product id, or x to exit and pay: ");
-    selection = scan.next();
-    // user chooses to exit and pay
-    if (selection.toLowerCase().equals("x")) {
-    break;        
+    public void run() {
+	    // You SHOULD NOT edit this method
+	    basket = new Basket();
+	
+	    String selection = "";
+	    while (true) {
+	    // output product list, current status and request input
+	    System.out.println(productList);
+	    System.out.println(basket);
+	    System.out.print("Input product id, or x to exit and pay: ");
+	    selection = scan.next();
+	    // user chooses to exit and pay
+	    if (selection.toLowerCase().equals("x")) {
+	    break;        
+	    }
+	    try {
+	    // try to parse user input as a product id
+	    int productId = Integer.parseInt(selection);
+	    if (productList.isProduct(productId)) {
+	    Product product = productList.getProduct(productId);
+	    if (basket.inBasket(product)) {
+	    requestAmendOrder(product);
+	    } else {
+	    requestAddNewOrder(product);
+	    }
+	    } else {
+	    // product id not in list
+	    throw new IllegalArgumentException();
+	    }
+	    } catch (IllegalArgumentException e) {
+	    System.out.println("Unrecognised selection. Please try again.\n\n");
+	    }
+	    }
+	
+	    finalise();
+	       }
+	
+	       public void requestAddNewOrder(Product item) {
+	    // You SHOULD NOT edit this method
+	    // Customer has requested an item not already in the basket.
+	    // This method elicits the desired quantity of that product then adds it to 
+	    // the basket.
+	    System.out.println("Adding: " + item.getName() );
+	    System.out.print("Input the desired quantity: ");
+	    String quantityStr = scan.next();
+	    try {
+	    basket.addNewOrder(item, quantityStr);
+	    } catch (IllegalArgumentException e) {
+	    System.out.println("Your input was not recognised."
+	    + " Your item has not been added.");
+	    }
     }
-    try {
-    // try to parse user input as a product id
-    int productId = Integer.parseInt(selection);
-    if (productList.isProduct(productId)) {
-    Product product = productList.getProduct(productId);
-    if (basket.inBasket(product)) {
-    requestAmendOrder(product);
-    } else {
-    requestAddNewOrder(product);
-    }
-    } else {
-    // product id not in list
-    throw new IllegalArgumentException();
-    }
-    } catch (IllegalArgumentException e) {
-    System.out.println("Unrecognised selection. Please try again.\n\n");
-    }
-    }
-
-    finalise();
-       }
-
-       public void requestAddNewOrder(Product item) {
-    // You SHOULD NOT edit this method
-    // Customer has requested an item not already in the basket.
-    // This method elicits the desired quantity of that product then adds it to 
-    // the basket.
-    System.out.println("Adding: " + item.getName() );
-    System.out.print("Input the desired quantity: ");
-    String quantityStr = scan.next();
-    try {
-    basket.addNewOrder(item, quantityStr);
-    } catch (IllegalArgumentException e) {
-    System.out.println("Your input was not recognised."
-    + " Your item has not been added.");
-    }
-       }
 
        public void requestAmendOrder(Product item) {
     // You SHOULD NOT edit this method
@@ -118,5 +118,5 @@ public class FoodStoreProg {
         System.out.println( "\n" + basket);
         System.out.println("This is your final order, please pay at counter.\n");
     }
-    */
+    
 }

@@ -2,7 +2,7 @@ package inst2002.coursework;
 
 import java.lang.IllegalArgumentException;
 
-public class WeightOrder {
+public class WeightOrder implements BasketItem{
     // You NEED TO complete this class to implement the BasketItem interface
 
     private double weight;
@@ -13,11 +13,6 @@ public class WeightOrder {
         this.PRODUCT = product;
         amendOrder(quantityStr);
     }
-
-    private void amendOrder(String quantityStr) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public double getWeight() {
         // You DO NOT NEED to edit this method.
@@ -30,8 +25,30 @@ public class WeightOrder {
             + PRODUCT.getName();
     }
 
-	private int orderPrice() {
+	@Override
+	public int postagePrice() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.PRODUCT.getPostage(this.weight);
+	}
+
+	@Override
+	public boolean matchesProduct(Product product) {
+		// TODO Auto-generated method stub
+		if(this.PRODUCT.equals(product)){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int orderPrice() {
+		// TODO Auto-generated method stub
+		return this.PRODUCT.getPrice(this.weight);
+	}
+
+	@Override
+	public void amendOrder(String quantityStr) {
+		// TODO Auto-generated method stub
+		this.weight = Double.parseDouble(quantityStr);
 	}
 }
